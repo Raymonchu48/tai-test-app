@@ -28,11 +28,11 @@ const schemeFromBundleId = `manus${timestamp}`;
 
 const env = {
   // App branding - update these values directly (do not use env vars)
-  appName: "TAI Test Oposiciones 2025",
+  appName: "TAI Test",
   appSlug: "tai-test-app",
   // S3 URL of the app logo - set this to the URL returned by generate_image when creating custom logo
   // Leave empty to use the default icon from assets/images/icon.png
-  logoUrl: "",
+  logoUrl: "https://private-us-east-1.manuscdn.com/sessionFile/AUqgTC76ndsoYsf0xkmikF/sandbox/NSF7o5jzqeZVh0GWJXPZSB-img-1_1771881142000_na1fn_aWNvbg.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvQVVxZ1RDNzZuZHNvWXNmMHhrbWlrRi9zYW5kYm94L05TRjdvNWp6cWVaVmgwR1dKWFBaU0ItaW1nLTFfMTc3MTg4MTE0MjAwMF9uYTFmbl9hV052YmcucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=YCUwp6~nBfHnRW7ATza8euv4DW0l-llvghtu18~edBKBqubDZ36P5pTNVoM19QNaoNM42Pfot-CfTvK~NyDyN-ccvEpcXJ09uvpcQZsZOBNHxXD~RJ0aWFjUVwB9CilkgstPiSqp-OiotrPNPnTyLkyzrkXu1QvBcibj5WectIWELMMctLlQv7bNuS9mAIlns058fDeTB0x4ACNa8KgmCnS--k7e9shGv5xjpa5zBxeixa9wvdCynHSux1Jt9iGU~lD5KtrWG2tjDhCcR3Vof5Dl2ITSe7ovB4WMHnC7-wjkXvRYuo1hp9OLAm69LBdNoU6kgGiahPEnf7Iexy3U6Q__",
   scheme: schemeFromBundleId,
   iosBundleId: bundleId,
   androidPackage: bundleId,
