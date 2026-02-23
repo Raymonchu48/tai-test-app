@@ -2,12 +2,14 @@ import { ScrollView, Text, View, Pressable, Alert } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { ScreenContainer } from '@/components/screen-container';
 import { useTestSession } from '@/hooks/use-test-session';
+import { useResponsive } from '@/hooks/use-responsive';
 import { useEffect, useState } from 'react';
 import { Question } from '@/lib/types';
 
 export default function TestQuestionScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const { isDesktop } = useResponsive();
   const {
     session,
     answerQuestion,
@@ -64,7 +66,7 @@ export default function TestQuestionScreen() {
   const handleFinish = () => {
     Alert.alert(
       'Finalizar Test',
-      '¿Deseas finalizar el test? No podrás cambiar tus respuestas.',
+      'No podrás cambiar tus respuestas después de finalizar.',
       [
         { text: 'Cancelar', onPress: () => {} },
         {
@@ -97,9 +99,9 @@ export default function TestQuestionScreen() {
   const totalQuestions = session.questions.length;
 
   return (
-    <ScreenContainer className="p-6">
+    <ScreenContainer className={isDesktop ? 'p-8' : 'p-6'}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-        <View className="flex-1 gap-6">
+        <View className={`flex-1 gap-6 ${isDesktop ? 'max-w-4xl mx-auto' : ''}`}>
           {/* Progress Header */}
           <View className="gap-3">
             <View className="flex-row justify-between items-center">
@@ -120,7 +122,7 @@ export default function TestQuestionScreen() {
 
           {/* Question */}
           <View className="gap-4">
-            <Text className="text-lg font-semibold text-foreground leading-relaxed">
+            <Text className={isDesktop ? 'text-xl font-semibold text-foreground leading-relaxed' : 'text-lg font-semibold text-foreground leading-relaxed'}>
               {currentQuestion.text}
             </Text>
 
@@ -130,11 +132,9 @@ export default function TestQuestionScreen() {
                 <Pressable
                   key={option}
                   onPress={() => handleAnswerSelect(option)}
-                  style={({ pressed }) => [
-                    {
-                      opacity: pressed ? 0.7 : 1,
-                    },
-                  ]}
+                  style={({ pressed }) => [{
+                    opacity: pressed ? 0.7 : 1,
+                  }]}
                 >
                   <View
                     className={`border-2 rounded-lg p-4 flex-row items-center gap-3 ${
@@ -171,43 +171,40 @@ export default function TestQuestionScreen() {
 
           {/* Navigation Buttons */}
           <View className="gap-3 mt-4">
-            <View className="flex-row gap-3">
+            <View className={isDesktop ? 'flex-row gap-3' : 'flex-row gap-3'}>
               <Pressable
                 onPress={handlePrevious}
                 disabled={currentIndex === 1}
-                style={({ pressed }) => [
-                  {
-                    opacity: currentIndex === 1 ? 0.5 : pressed ? 0.7 : 1,
-                  },
-                ]}
+                style={({ pressed }) => [{
+                  opacity: currentIndex === 1 ? 0.5 : pressed ? 0.7 : 1,
+                  flex: isDesktop ? 1 : 1,
+                }]}
               >
-                <View className="flex-1 border-2 border-border rounded-lg p-3 items-center">
+                <View className="border-2 border-border rounded-lg p-3 items-center">
                   <Text className="text-foreground font-semibold">Anterior</Text>
                 </View>
               </Pressable>
 
               <Pressable
                 onPress={handleSkip}
-                style={({ pressed }) => [
-                  {
-                    opacity: pressed ? 0.7 : 1,
-                  },
-                ]}
+                style={({ pressed }) => [{
+                  opacity: pressed ? 0.7 : 1,
+                  flex: isDesktop ? 1 : 1,
+                }]}
               >
-                <View className="flex-1 border-2 border-warning rounded-lg p-3 items-center">
+                <View className="border-2 border-warning rounded-lg p-3 items-center">
                   <Text className="text-warning font-semibold">Saltar</Text>
                 </View>
               </Pressable>
 
               <Pressable
                 onPress={handleNext}
-                style={({ pressed }) => [
-                  {
-                    opacity: pressed ? 0.7 : 1,
-                  },
-                ]}
+                style={({ pressed }) => [{
+                  opacity: pressed ? 0.7 : 1,
+                  flex: isDesktop ? 1 : 1,
+                }]}
               >
-                <View className="flex-1 bg-primary rounded-lg p-3 items-center">
+                <View className="bg-primary rounded-lg p-3 items-center">
                   <Text className="text-background font-semibold">
                     {currentIndex === totalQuestions ? 'Finalizar' : 'Siguiente'}
                   </Text>
@@ -217,11 +214,9 @@ export default function TestQuestionScreen() {
 
             <Pressable
               onPress={handleFinish}
-              style={({ pressed }) => [
-                {
-                  opacity: pressed ? 0.7 : 1,
-                },
-              ]}
+              style={({ pressed }) => [{
+                opacity: pressed ? 0.7 : 1,
+              }]}
             >
               <View className="border-2 border-error rounded-lg p-3 items-center">
                 <Text className="text-error font-semibold">Finalizar Test</Text>

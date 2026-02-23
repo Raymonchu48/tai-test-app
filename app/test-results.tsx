@@ -3,11 +3,13 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { ScreenContainer } from '@/components/screen-container';
 import { getTestResults } from '@/lib/storage';
 import { TestResult } from '@/lib/types';
+import { useResponsive } from '@/hooks/use-responsive';
 import { useEffect, useState } from 'react';
 
 export default function TestResultsScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const { isDesktop } = useResponsive();
   const [result, setResult] = useState<TestResult | null>(null);
 
   useEffect(() => {
@@ -54,12 +56,12 @@ export default function TestResultsScreen() {
   const isGoodScore = result.percentage >= 70;
 
   return (
-    <ScreenContainer className="p-6">
+    <ScreenContainer className={isDesktop ? 'p-8' : 'p-6'}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-        <View className="flex-1 gap-6">
+        <View className={`flex-1 gap-6 ${isDesktop ? 'max-w-2xl mx-auto' : ''}`}>
           {/* Header */}
           <View className="gap-2">
-            <Text className="text-2xl font-bold text-foreground">
+            <Text className={isDesktop ? 'text-4xl font-bold text-foreground' : 'text-2xl font-bold text-foreground'}>
               {result.type === 'block' ? result.blockName : 'Examen General'}
             </Text>
             <Text className="text-sm text-muted">Test completado</Text>
@@ -96,15 +98,17 @@ export default function TestResultsScreen() {
           </View>
 
           {/* Statistics */}
-          <View className="gap-3">
-            <View className="flex-row gap-3">
+          <View className={isDesktop ? 'gap-4' : 'gap-3'}>
+            <View className={isDesktop ? 'flex-row gap-4' : 'flex-row gap-3'}>
               <View className="flex-1 bg-success bg-opacity-10 rounded-lg p-4 border border-success">
                 <Text className="text-xs text-muted mb-1">Correctas</Text>
-                <Text className="text-2xl font-bold text-success">{result.score}</Text>
+                <Text className={isDesktop ? 'text-3xl font-bold text-success' : 'text-2xl font-bold text-success'}>
+                  {result.score}
+                </Text>
               </View>
               <View className="flex-1 bg-error bg-opacity-10 rounded-lg p-4 border border-error">
                 <Text className="text-xs text-muted mb-1">Incorrectas</Text>
-                <Text className="text-2xl font-bold text-error">
+                <Text className={isDesktop ? 'text-3xl font-bold text-error' : 'text-2xl font-bold text-error'}>
                   {result.totalQuestions - result.score}
                 </Text>
               </View>
@@ -112,26 +116,26 @@ export default function TestResultsScreen() {
 
             <View className="bg-surface rounded-lg p-4 border border-border">
               <Text className="text-xs text-muted mb-1">Tiempo empleado</Text>
-              <Text className="text-2xl font-bold text-foreground">
+              <Text className={isDesktop ? 'text-3xl font-bold text-foreground' : 'text-2xl font-bold text-foreground'}>
                 {minutes}m {seconds}s
               </Text>
             </View>
           </View>
 
           {/* Actions */}
-          <View className="gap-3 mt-4">
+          <View className={isDesktop ? 'gap-3 flex-row' : 'gap-3'}>
             <Pressable
               onPress={handleReview}
-              style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+              style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1, flex: isDesktop ? 1 : 1 }]}
             >
               <View className="bg-primary rounded-lg p-4 items-center">
-                <Text className="text-background font-semibold">Ver Detalle de Respuestas</Text>
+                <Text className="text-background font-semibold">Ver Detalle</Text>
               </View>
             </Pressable>
 
             <Pressable
               onPress={handleNewTest}
-              style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+              style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1, flex: isDesktop ? 1 : 1 }]}
             >
               <View className="border-2 border-primary rounded-lg p-4 items-center">
                 <Text className="text-primary font-semibold">Nuevo Test</Text>
@@ -140,10 +144,10 @@ export default function TestResultsScreen() {
 
             <Pressable
               onPress={handleHome}
-              style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+              style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1, flex: isDesktop ? 1 : 1 }]}
             >
               <View className="border-2 border-border rounded-lg p-4 items-center">
-                <Text className="text-foreground font-semibold">Volver al Inicio</Text>
+                <Text className="text-foreground font-semibold">Inicio</Text>
               </View>
             </Pressable>
           </View>
