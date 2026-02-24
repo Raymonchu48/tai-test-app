@@ -50,6 +50,16 @@
 - [ ] Crear checkpoint final
 - [ ] Preparar documentación de uso
 
+## Fase 9: Integración de Backend y Sincronización en la Nube
+- [x] Crear tablas de base de datos para tests, estadísticas y sincronización
+- [x] Implementar funciones de base de datos para CRUD de tests
+- [x] Crear APIs REST con tRPC para sincronización
+- [x] Implementar hook useCloudSync para sincronización bidireccional
+- [x] Crear pantalla de login con autenticación OAuth
+- [ ] Integrar sincronización en la pantalla de inicio
+- [ ] Agregar botón de sincronización manual
+- [ ] Implementar sincronización automática en background
+
 ## Notas Importantes
 - La app utiliza Expo Router para navegación
 - Almacenamiento local con AsyncStorage (sin servidor requerido)
